@@ -30,3 +30,12 @@ Select
 distinct(content_type) 
 from Netflix;
 
+-- 15 Business problems :
+
+-- 1. Count the number of Movies vs TV Shows
+Select 
+content_type, count(content_type) total_count 
+from Netflix 
+group by content_type;
+
+
