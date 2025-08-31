@@ -92,8 +92,17 @@ Select
 
 -- 8. List all TV shows with more than 5 seasons
 Select 
-	Content_type, title, Cast(Regexp_replace(duration, '[^1-9]', '', 'g') as int) numeric_duration
+	Content_type, title, Cast(Regexp_replace(duration, '[^1-9]', '', 'g') as int) numeric_duration /* "Split_part(duration, ' ', 1) :: numeric" -> this could be an alternate way to choose the numeric part from the "duration" column*/
 	from Netflix 
 	where content_type = 'TV Show' and Cast(Regexp_replace(duration, '[^1-9]', '', 'g') as int) > 5 
 	order by numeric_duration asc
+
+
+-- 9. Count the number of content items in each genre
+Select 
+	unnest(string_to_array(listed_in, ',')) Genere, count(*) number_of_shows
+	from Netflix 
+	group by 1
+	order by 2 desc
+
 
