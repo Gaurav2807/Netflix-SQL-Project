@@ -90,3 +90,10 @@ Select
 	where director ilike '%Rajiv Chilaka%'
 
 
+-- 8. List all TV shows with more than 5 seasons
+Select 
+	Content_type, title, Cast(Regexp_replace(duration, '[^1-9]', '', 'g') as int) numeric_duration
+	from Netflix 
+	where content_type = 'TV Show' and Cast(Regexp_replace(duration, '[^1-9]', '', 'g') as int) > 5 
+	order by numeric_duration asc
+
