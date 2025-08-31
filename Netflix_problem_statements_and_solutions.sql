@@ -61,6 +61,13 @@ Select
 		where content_type = 'Movie' and release_year = 2020
 
 
+-- 4. Find the top 5 countries with the most content on Netflix
+Select 
+	Unnest(string_to_array(country, ',')) unique_countries, count(*) content_count
+	from Netflix
+	group by 1 
+	order by content_count desc 
+	limit 5;
 
 
 
