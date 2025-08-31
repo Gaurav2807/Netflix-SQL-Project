@@ -35,10 +35,10 @@ Select
 -- 15 Business problems :
 
 -- 1. Count the number of Movies vs TV Shows
-Select 
-	content_type, count(content_type) total_count 
-	from Netflix 
-	group by content_type;
+	Select 
+		content_type, count(content_type) total_count 
+		from Netflix 
+		group by content_type;
 
 
 -- 2. Find the most common rating for movies and TV shows
@@ -52,6 +52,17 @@ Select
 				order by total_count desc
 			) total_count_table
 		where ranking = 1;
+
+
+-- 3. List all movies released in a specific year (e.g., 2020)
+	Select
+		title 
+		from Netflix
+		where content_type = 'Movie' and release_year = 2020
+
+
+
+
 
 
 
