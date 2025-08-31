@@ -77,9 +77,16 @@ Select
 
 
 -- 6. Find content added in the last 5 years
-Select content_type, title, date_added
-from netflix
-where to_date(date_added, 'Month DD, YYYY') >= now() - interval '5 years'
+Select 
+	content_type, title, date_added
+	from netflix
+	where to_date(date_added, 'Month DD, YYYY') >= now() - interval '5 years'
 
 
-Select current_date - interval '5 years';
+-- 7. Find all the movies/TV shows by director 'Rajiv Chilaka'!
+Select 
+	content_type, title, director
+	from Netflix 
+	where director ilike '%Rajiv Chilaka%'
+
+
