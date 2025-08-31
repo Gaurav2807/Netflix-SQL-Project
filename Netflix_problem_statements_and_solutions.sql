@@ -69,8 +69,11 @@ Select
 	order by content_count desc 
 	limit 5;
 
+-- 5. Identify the longest movie
+Select 
+	title, duration
+	from Netflix
+	where content_type = 'Movie' and duration = (Select max(duration) from Netflix)
 
 
 
-
-	
