@@ -76,4 +76,10 @@ Select
 	where content_type = 'Movie' and duration = (Select max(duration) from Netflix)
 
 
+-- 6. Find content added in the last 5 years
+Select content_type, title, date_added
+from netflix
+where to_date(date_added, 'Month DD, YYYY') >= now() - interval '5 years'
 
+
+Select current_date - interval '5 years';
