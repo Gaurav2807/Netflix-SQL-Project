@@ -139,3 +139,18 @@ Select
 	where director is null;
 
 
+-- 13. Find how many movies actor 'Salman Khan' appeared in last 10 years!
+With Salman_Khan_movies as 
+(
+	Select 
+		unnest(string_to_array(actors, ',')) unique_actors, *
+		from Netflix 
+		where release_year >= extract(year from current_date) - 10
+		-- where to_date(date_added, 'Month DD, YYYY') >= now() - interval '10 years'
+) 
+Select 
+	count(*)
+	from Salman_Khan_movies 
+	where unique_actors ilike '%Salman Khan%';
+
+
