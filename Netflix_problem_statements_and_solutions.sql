@@ -118,7 +118,7 @@ Select
 	
 
 -- 11. List all movies that are documentaries
-With Category_count as
+With CTE_Category_count as
 (
 	Select 
 		unnest(string_to_array(listed_in, ',')) Category, count(*) category_cnt
@@ -127,7 +127,7 @@ With Category_count as
 )
 Select 
 	category_cnt, sum(category_cnt) over( order by 1)
-	from Category_count 
+	from CTE_Category_count 
 	where Category ilike '%Documentaries%';
 /* Select * from Netflix where lited_in ilike '%Documentaries'*/
 
@@ -140,7 +140,7 @@ Select
 
 
 -- 13. Find how many movies actor 'Salman Khan' appeared in last 10 years!
-With Salman_Khan_movies as 
+With CTE_Salman_Khan_movies as 
 (
 	Select 
 		unnest(string_to_array(actors, ',')) unique_actors, *
@@ -150,7 +150,24 @@ With Salman_Khan_movies as
 ) 
 Select 
 	count(*)
-	from Salman_Khan_movies 
+	from CTE_Salman_Khan_movies 
 	where unique_actors ilike '%Salman Khan%';
 
 
+-- 14. Find the top 10 actors who have appeared in the highest number of movies produced in India.
+With CTE_unique_countries_and_actors as
+(
+	Select 
+		unnest(string_to_array(actors, ',')) unique_actors, *
+		from Netflix 
+)
+Select 
+	unique_actors, count(*) 
+	from CTE_unique_countries_and_actors
+	where country ilike '%India%'
+	group by 1
+	order by 2 desc 
+	limit 10;
+
+
+	
