@@ -107,18 +107,27 @@ Select
 
 
 -- 10.Find each year and the average numbers of content release in India on netflix. Return top 5 year with highest avg content release!
-
 Select 
 	unnest(string_to_array(country, ',')) unique_countries, 
 	split_part(date_added, ',', 2) release_year, 
 	count(content_type) yearly_content_released, 
-	Round((count(*) :: numeric / (Select count(*) from Netflix where country = 'India') :: numeric) * 100, 2) avg_content_per_year
-	/* "Extract( Year from To_date(date_added, 'Month DD, YYYY'))" -> This is a better option to extract year after converting thr "date_added" column to "date" format" */
+	Round((count(*) :: numeric / (Select count(*) from Netflix where country = 'India') :: numeric) * 100, 2) avg_content_per_year /* "Extract( Year from To_date(date_added, 'Month DD, YYYY'))" -> This is a better option to extract year after converting thr "date_added" column to "date" format" */
 	from Netflix 
-	-- where 'India' in (Select unnest(string_to_array(country, ',')) from Netflix)
-	where country = 'India' or country = ' India' or country = 'India '
+	where country = 'India'
 	group by 1,2
-	-- order by 1
+
+-- 11. List all movies that are documentaries
+With Category_count as
+(
+	Select 
+		unnest(string_to_array(listed_in, ',')) Category, count(*) category_cnt
+		from Netflix 
+		group by 1
+)
+Select 
+	category_cnt, sum(category_cnt) over( order by 1)
+	from Category_count 
+	where Category ilike '%Documentaries%';
+/* Select * from Netflix where lited_in ilike '%Documentaries'*/
 
 
-	
