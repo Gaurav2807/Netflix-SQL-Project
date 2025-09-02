@@ -115,6 +115,7 @@ Select
 	from Netflix 
 	where country = 'India'
 	group by 1,2
+	
 
 -- 11. List all movies that are documentaries
 With Category_count as
@@ -129,5 +130,12 @@ Select
 	from Category_count 
 	where Category ilike '%Documentaries%';
 /* Select * from Netflix where lited_in ilike '%Documentaries'*/
+
+
+-- 12. Find all content without a director
+Select 
+	* 
+	from Netflix 
+	where director is null;
 
 
