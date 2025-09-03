@@ -48,4 +48,4 @@ This analysis provides a comprehensive view of Netflix's content and can help in
 ## Video tutorial link
 You can watch the video tutorial using this link - [Advanced SQL Project | Netflix Data Analysis Using SQL (Guided)](https://www.youtube.com/watch?v=-7cT0651_lw)
 
-Thanks to 'Zero Analyst' channel for creating such useful content
+Thanks to 'Zero Analyst' channel for creating such useful content !
