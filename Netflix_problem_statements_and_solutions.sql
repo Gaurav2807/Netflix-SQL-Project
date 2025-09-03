@@ -170,4 +170,17 @@ Select
 	limit 10;
 
 
-	
+-- 15. Categorize the content based on the presence of the keywords 'kill' and 'violence' in 
+-- the description field. Label content containing these keywords as 'Bad' and all other 
+-- content as 'Good'. Count how many items fall into each category.
+ Select * from Netflix;
+
+ Select 
+	case
+		when description ilike '%kill%' or description ilike '%violence%' 
+		then 'Bad' 
+		else 'Good'
+	 end as content_rating, 
+	 count(*) cnt
+	 from Netflix
+	 group by 1
